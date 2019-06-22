@@ -1,4 +1,4 @@
-#!/Users/bdthai81/Desktop/GCP/Projects/DEPracticeApp/env/bin/python
+#!/home/bdthai81/DEPracticeApp/env/bin/python3
 # -*- coding: utf-8 -*-
 import re
 import sys

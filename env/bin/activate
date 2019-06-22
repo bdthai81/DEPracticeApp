@@ -40,7 +40,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="/Users/bdthai81/Desktop/GCP/Projects/DEPracticeApp/env"
+VIRTUAL_ENV="/home/bdthai81/DEPracticeApp/env"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

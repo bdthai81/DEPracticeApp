@@ -1,4 +1,4 @@
-#!/Users/bdthai81/Desktop/GCP/Projects/DEPracticeApp/env/bin/python
+#!/home/bdthai81/DEPracticeApp/env/bin/python
 
 import sys
 import getopt
