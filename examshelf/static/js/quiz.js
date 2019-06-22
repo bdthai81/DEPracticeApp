@@ -9,6 +9,7 @@ setInterval( function(){
 // Arrays
 var userAnswerArray = [];
 var answerArray = [];
+var questionArray = [];
 
 var endLabel = document.getElementById("end");
 if(endLabel.getAttribute("mode") == "Exam") {
@@ -27,6 +28,9 @@ function end() {
             result++;
         };
     };
+    console.log("in");
+    console.log(userAnswerArray, answerArray);
+    console.log("out", questionArray);
     
     endLabel.innerHTML = '<font color="blue">' + "Result: "+ result + "/" + answerArray.length + ' are Correct</font>';
     
@@ -99,7 +103,6 @@ sourceData.forEach(function(source) {
             }
             // Multiple answers: checkboxes
             else {
-                console.log(source.id+qNo);
                 qRadio.setAttribute("type", "checkbox");
                 qRadio.addEventListener('change', qChecked);
             };
@@ -119,5 +122,6 @@ sourceData.forEach(function(source) {
         // Append answer into answerArray and create emtpy userAnswerArray
         userAnswerArray.push("");
         answerArray[answerLabel.getAttribute("index")] = questionData.answer;
+        questionArray.push("qNo");
     });
 });

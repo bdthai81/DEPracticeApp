@@ -36,6 +36,24 @@ def list():
         next_page_token=next_page_token)
 # [END list]
 
+# [START list_mine]
+@crud.route("/mine")
+@oauth2.required
+def list_mine():
+    token = request.args.get('page_token', None)
+    if token:
+        token = token.encode('utf-8')
+
+    exam, next_page_token = get_model().list(cursor=token)
+
+    print(session['profile']['email'])
+
+    return render_template(
+        "test.html",
+        exam=exam,
+        next_page_token=next_page_token)
+# [END list_mine]
+
 # [START Quiz]
 @crud.route("/quiz", methods=['GET', 'POST'])
 def quiz():
