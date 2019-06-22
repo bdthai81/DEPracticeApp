@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <h3>Test Bank</h3>
+  <div class="card mb-3">
+    <h3 class="card-header text-white bg-primary">Customize your Quiz session</h3>
+    <ul class="list-group list-group-flush">
+      <!-- Mode: -->
+      <li class="list-group-item">
+        <label class="text-primary col-md-2">
+          Mode:
+        </label>
+        <label class="form-check-label col-md-4">
+          <input type="radio" class="form-check-input" name="optionMode" id="optionMode1" value="Study" checked="">
+          Study
+        </label>
+        <label class="form-check-label col-md-3">
+          <input type="radio" class="form-check-input" name="optionMode" id="optionMode2" value="Exam">
+          Exam
+        </label>
+      </li>
+      <!-- Source: -->
+      <li class="list-group-item" id="optionSources">
+        <label class="text-primary col-md-2">
+          Source:
+        </label>
+      </li>
+      <!-- Order: -->
+      <li class="list-group-item">
+        <label class="text-primary col-md-2">
+          Order:
+        </label>
+        <label class="form-check-label col-md-4">
+          <input type="radio" class="form-check-input" name="optionOrder" id="optionOrder1" value="Random" checked="">
+          Random
+        </label>
+        <label class="form-check-label col-md-3">
+          <input type="radio" class="form-check-input" name="optionOrder" id="optionOrder2" value="Sequential">
+          Sequential
+        </label>
+      </li>
+    </ul>
+    <div class="card-body row" id="sources">
+    </div>
+    <div class="card-footer">
+      Total questions: 
+      <label id="totalQuestions"></label>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body row">
+      <div class="form-group col-md-4">
+        <h5 class="text-primary">Build From:</h5>
+        <select class="form-control" id="buildForm">
+        </select>
+      </div>
+      <div class="form-group col-md-3">
+        <h5 class="text-primary">Number of Questions:</h5>
+        <select class="form-control" id="numberQuestions" onchange="updateEstimateTime()">
+        </select>
+      </div>
+      <div class="form-group col-md-3 mr-auto">
+        <h5 class="text-primary">Estimated Time:</h5>
+        <label id="estimatedTime"></label>
+      </div>
+      <button type="submit" class="btn btn-primary" onclick="takeQuiz()">Take the Quiz</button>
+      <form id="quizForm" method="post" action="/exams/quiz" target="quizWindow">
+          <input type="hidden" name="quizArray" value="quizArray" />
+          <input type="hidden" name="mode" value="mode" />
+      </form>
+    </div>
+  </div>
+
+  
+{% endblock %}
+
+{% block javascript %}
+    <script src="{{ url_for('static', filename='js/test.js') }}"></script>
+{% endblock %}

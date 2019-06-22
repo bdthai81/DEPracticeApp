@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <title>Data Engineer - Quiz</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Bootstrap theme -->
+    <link rel="stylesheet" href="https://bootswatch.com/4/cyborg/bootstrap.css">
+    <!-- CSS-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    </head>
+    <body>
+      <div class="container">
+            <div class="float-right">
+                Timer: <label id="minutes">00</label>:<label id="seconds">00</label>
+            </div>
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="0">
+                <ol class="carousel-indicators">
+                    {% for quiz in quizArray %}
+                        {% if loop.index == 1 %}
+                          <li data-target="#carouselExampleIndicators" data-slide-to={{loop.index-1}} class="active"></li>
+                        {% else %}
+                          <li data-target="#carouselExampleIndicators" data-slide-to={{loop.index-1}}></li>
+                        {% endif %}
+                    {% endfor %}
+                </ol>
+                <div class="carousel-inner">
+                    {% for quiz in quizArray %}
+                        {% if loop.first %}
+                          <div class="jumbotron carousel-item active">
+                        {% else %}
+                          <div class="jumbotron carousel-item">
+                        {% endif %}
+                            <h5 class="display-5">Question {{loop.index}}</h5>
+                            <div class={{quiz.id}} value={{quiz.question}}></div>
+                            <br>
+                            <p class="lead">
+                                <a class="btn btn-primary btn-lg" href="#carouselExampleIndicators" role="button" data-slide="prev">Prev</a>
+                                <a class="btn btn-primary btn-lg" href="#carouselExampleIndicators" role="button" data-slide="next">Next</a>
+                                <a class="btn btn-primary btn-lg" href={{ "#answer" + quiz.id + quiz.question|string}} name="invisibleElements" role="button" data-toggle="collapse">Answer</a>
+                                {% if loop.last  %}
+                                <button type="button" class="btn btn-primary btn-lg float-right" onclick="end()">End</button><br><br>
+                                <label class="form-group" id="end" mode={{mode}}></label>
+                                {% endif %}
+                            </p>
+                            <p class="lead">
+                                <label class="form-group" id={{ "result" + quiz.id + quiz.question|string}} name="invisibleElements"></label>
+                                <label class="form-group collapse" id={{ "answer" + quiz.id + quiz.question|string }} index={{loop.index-1}}></label>
+                            </p>
+                          </div>
+                    {% endfor %}
+                </div>
+            </div>
+      </div>
+    <!-- Bootstrap JavaScript-->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <!-- Data JavaScript -->
+    <script src="{{ url_for('static', filename='js/deptData.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/delaData.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/sourceData.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/quiz.js') }}"></script>
+    </body>
+</html>
