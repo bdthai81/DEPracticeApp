@@ -13,7 +13,7 @@ function del() {
     $.ajax({
         type: 'POST',
         url: '/exams/flash_del',
-        data: JSON.stringify (data),
+        data: JSON.stringify(data),
         success: function(data) {
             if (data === "success") {
                 // Make delete button invisible

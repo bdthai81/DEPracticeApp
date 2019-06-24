@@ -30,8 +30,6 @@
                         <a class="btn btn-primary btn-lg" href={{ "#answer" + question.id + question.question|string}} role="button" data-toggle="collapse">Answer</a>
                         {% if session.profile %}
                         <button name="deleteBtn" type="button" class="btn btn-primary btn-lg float-right" value={{question.id + question.question|string}} email="{{session.profile.email}}">Delete</button>
-                        {% else %}
-                        <button name="deleteBtn" type="button" class="btn btn-primary btn-lg float-right" value={{question.id + question.question|string}} email="">Delete</button>
                         {% endif %}
                         <br><br>
                     </p>

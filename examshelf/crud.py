@@ -25,25 +25,13 @@ crud = Blueprint('crud', __name__)
 # [START list]
 @crud.route("/")
 def test():
-    # token = request.args.get('page_token', None)
-    # if token:
-    #     token = token.encode('utf-8')
-
-    # exam, next_page_token = get_model().list(cursor=token)
-
     return render_template("test.html")
-        # # exam=exam,
-        # next_page_token=next_page_token)
 # [END list]
 
 # [START test_mine]
 @crud.route("/mine")
 @oauth2.required
 def test_mine():
-    # token = request.args.get('page_token', None)
-    # if token:
-    #     token = token.encode('utf-8')
-
     exams = get_model().exams_list(session['profile']['email'])
     flashcards = get_model().flashcards_list(session['profile']['email'])
 
@@ -61,9 +49,9 @@ def quiz():
         # convert jsonify string back into list of dictionary
         quizArray = json.loads(request.form["quizArray"])
         mode = json.loads(request.form["mode"])
-        
+
         return render_template("quiz.html", quizArray=quizArray, mode=mode)
-    
+
     return render_template("quiz.html")
 # [END Quiz]
 
@@ -71,18 +59,15 @@ def quiz():
 # [START Flashcard]
 @crud.route("/flashcard")
 def flashcard():
-    # try:
+    try:
         # Load flashcard questions list
-        # questionArray = get_model().flashcards_list(session['profile']['email'])
-        questionArray = get_model().flashcards_list("")
-        print(questionArray)
-        # convert jsonify string back into list of dictionary
-        # questionArray = json.loads(request.form["questionArray"])
-            
+        questionArray = get_model().flashcards_list(session['profile']['email'])
+        # questionArray = get_model().flashcards_list("")
+
         return render_template("flashcard.html", questionArray=questionArray)
-    # except:
-    #     return render_template("test.html")
-    
+    except:
+        return render_template("test.html")
+
 # [END Flashcard]
 
 
@@ -90,10 +75,12 @@ def flashcard():
 @crud.route('/add', methods=['GET', 'POST'])
 def add():
     if request.method == 'POST':
-        questions = request.form["questions"]
-        answers = request.form["answers"]
-        user_answers = request.form["user_answers"]
-        email = request.form["email"]
+        content = request.get_json()
+
+        questions = content["questions"]
+        answers = content["answers"]
+        user_answers = content["user_answers"]
+        email = content["email"]
 
         data = {
             "questions": questions,
@@ -121,8 +108,8 @@ def add():
                 except:
                     # Ignore duplicates
                     pass
-
-    return "Results submitted!"
+    # Return refresh test html page
+    return "success"
 # [END add]
 
 # [START flash_del]

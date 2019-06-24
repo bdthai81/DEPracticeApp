@@ -30,15 +30,29 @@ function end() {
     };
 
     // Submit quiz results to server
-    var submitBtn = this;
-    var quizForm = document.getElementById('quizForm');
-    if(quizForm.email.value) {
-        quizForm.questions.value = JSON.stringify(questionArray);
-        quizForm.answers.value = JSON.stringify(answerArray);
-        quizForm.user_answers.value = JSON.stringify(userAnswerArray);
-        window.open('', 'endWindow');
-        quizForm.submit();
-        submitBtn.classList.add("invisible");
+    var submitBtn = document.getElementById('endBtn');
+    var emailHidden = document.getElementById('emailHidden');
+    if (emailHidden) {
+        data = {
+            "questions": JSON.stringify(questionArray),
+            "answers": JSON.stringify(answerArray),
+            "user_answers": JSON.stringify(userAnswerArray),
+            "email": emailHidden.getAttribute('value')
+        }
+        //ajax the JSON to the server to add results
+        $.ajax({
+            type: 'POST',
+            url: '/exams/add',
+            data: JSON.stringify(data),
+            success: function(data) {
+                if (data === "success") {
+                    // Make submit button invisible
+                    submitBtn.classList.add("invisible");
+                }
+            },
+            contentType: "application/json",
+            dataType: 'text'
+        });
     };
     
     // Display results
