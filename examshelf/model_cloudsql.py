@@ -37,69 +37,135 @@ def from_sql(row):
     return data
 
 
+def from_flash_sql(row):
+    """Translates a SQLAlchemy model instance into a dictionary"""
+    data = row.__dict__.copy()
+    data.pop('_sa_instance_state')
+    return data
+
+
 # [START model]
-class Exam(db.Model):
+class Exams(db.Model):
     __tablename__ = 'exams'
 
     id = db.Column(db.Integer, primary_key=True)
-    source = db.Column(db.String(255))
     questions = db.Column(db.String(511))
     answers = db.Column(db.String(511))
     user_answers = db.Column(db.String(511))
     createdBy = db.Column(db.String(255))
-    createdById = db.Column(db.String(255))
     createdDate = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
     def __repr__(self):
-        return "<Exam(source='%s', createdDate=%s)" % (self.source, self.createdDate)
+        return "<Exams(createdDate=%s)" % (self.createdDate)
+
+class Flashcards(db.Model):
+    __tablename__ = 'flashcards'
+
+    createdBy = db.Column(db.String(255), primary_key=True)
+    question = db.Column(db.String(10), primary_key=True)
+
+    def __repr__(self):
+        return "<Flashcards(createdBy=%s)" % (self.createdBy)
+
 # [END model]
 
 
-# [START list]
-def list(limit=10, cursor=None):
-    cursor = int(cursor) if cursor else 0
-    query = (Exam.query
-             .order_by(Exam.source)
-             .limit(limit)
-             .offset(cursor))
+# [START exams_ist]
+def exams_list(email, limit=100):
+    query = (Exams.query
+             .filter(Exams.createdBy==email)
+             .order_by(Exams.createdDate.desc())
+             .limit(limit))
     exams = builtin_list(map(from_sql, query.all()))
-    next_page = cursor + limit if len(exams) == limit else None
-    return (exams, next_page)
-# [END list]
+    return exams
+# [END exams_ist]
 
 
-# [START read]
-def read(id):
-    result = Exam.query.get(id)
-    if not result:
-        return None
-    return from_sql(result)
-# [END read]
+# [START flashcards_list]
+def flashcards_list(email):
+    query = (Flashcards.query
+             .filter(Flashcards.createdBy==email))
+    flashcards = builtin_list(map(from_flash_sql, query.all()))
+    for card in flashcards:
+        card['id'] = card['question'][0:2]
+        card['question'] = card['question'][2:]
+    return flashcards
+# [END flashcards_list]
 
 
-# [START create]
-def create(data):
-    exam = Exam(**data)
+# [START exams_create]
+def exams_create(data):
+    exam = Exams(**data)
     db.session.add(exam)
     db.session.commit()
-    return from_sql(exam)
-# [END create]
+    
+# [END exams_create]
 
 
-# [START update]
-def update(data, id):
-    exam = Exam.query.get(id)
-    for k, v in data.items():
-        setattr(exam, k, v)
+# [START exams_read]
+def exams_read(id):
+    # result = Exams.query.get(id)
+    # if not result:
+    #     return None
+    # return from_sql(result)
+    return None
+# [END exams_read]
+
+
+# [START exams_update]
+def exams_update(data, id):
+    # exam = Exams.query.get(id)
+    # for k, v in data.items():
+    #     setattr(exam, k, v)
+    # db.session.commit()
+    # return from_sql(exam)
+    return None
+# [END exams_update]
+
+
+# [START exams_delete]
+def exams_delete(id):
+    # Exams.query.filter_by(id=id).delete()
+    # db.session.commit()
+    return None
+# [END exams_delete]
+
+
+# [START flashcards_create]
+def flashcards_create(data):
+    flash = Flashcards(**data)
+    db.session.add(flash)
     db.session.commit()
-    return from_sql(exam)
-# [END update]
+    
+# [END flashcards_create]
 
 
-def delete(id):
-    Exam.query.filter_by(id=id).delete()
+# [START flashcards_read]
+def flashcards_read(id):
+    # result = Flashcards.query.get(id)
+    # if not result:
+    #     return None
+    # return from_sql(result)
+    return None
+# [END flashcards_read]
+
+
+# [START flashcards_update]
+def flashcards_update(data, id):
+    # flash = Flashcards.query.get(id)
+    # for k, v in data.items():
+    #     setattr(flash, k, v)
+    # db.session.commit()
+    # return from_sql(flash)
+    return None
+# [END flashcards_update]
+
+
+# [START flashcards_delete]
+def flashcards_delete(email, question):
+    Flashcards.query.filter_by(createdBy=email, question=question).delete()
     db.session.commit()
-
+# [END flashcards_delete]
 
 def _create_database():
     """

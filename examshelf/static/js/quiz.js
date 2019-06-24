@@ -28,12 +28,23 @@ function end() {
             result++;
         };
     };
-    console.log("in");
-    console.log(userAnswerArray, answerArray);
-    console.log("out", questionArray);
+
+    // Submit quiz results to server
+    var submitBtn = this;
+    var quizForm = document.getElementById('quizForm');
+    if(quizForm.email.value) {
+        quizForm.questions.value = JSON.stringify(questionArray);
+        quizForm.answers.value = JSON.stringify(answerArray);
+        quizForm.user_answers.value = JSON.stringify(userAnswerArray);
+        window.open('', 'endWindow');
+        quizForm.submit();
+        submitBtn.classList.add("invisible");
+    };
     
+    // Display results
     endLabel.innerHTML = '<font color="blue">' + "Result: "+ result + "/" + answerArray.length + ' are Correct</font>';
     
+    // Enable answer button by making visible
     if(endLabel.getAttribute("mode") == "Exam") {
         // toggle group source visibility
         var grpElements = document.getElementsByName("invisibleElements");
@@ -122,6 +133,6 @@ sourceData.forEach(function(source) {
         // Append answer into answerArray and create emtpy userAnswerArray
         userAnswerArray.push("");
         answerArray[answerLabel.getAttribute("index")] = questionData.answer;
-        questionArray.push("qNo");
+        questionArray[answerLabel.getAttribute("index")] = source.id+questionData.id;
     });
 });

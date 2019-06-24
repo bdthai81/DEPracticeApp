@@ -16,6 +16,7 @@ from examshelf import get_model, oauth2
 from flask import Blueprint, current_app, redirect, render_template, request, \
     session, url_for
 import json
+from ast import literal_eval
 
 
 crud = Blueprint('crud', __name__)
@@ -23,35 +24,33 @@ crud = Blueprint('crud', __name__)
 
 # [START list]
 @crud.route("/")
-def list():
-    token = request.args.get('page_token', None)
-    if token:
-        token = token.encode('utf-8')
+def test():
+    # token = request.args.get('page_token', None)
+    # if token:
+    #     token = token.encode('utf-8')
 
-    exam, next_page_token = get_model().list(cursor=token)
+    # exam, next_page_token = get_model().list(cursor=token)
 
-    return render_template(
-        "test.html",
-        exam=exam,
-        next_page_token=next_page_token)
+    return render_template("test.html")
+        # # exam=exam,
+        # next_page_token=next_page_token)
 # [END list]
 
-# [START list_mine]
+# [START test_mine]
 @crud.route("/mine")
 @oauth2.required
-def list_mine():
-    token = request.args.get('page_token', None)
-    if token:
-        token = token.encode('utf-8')
+def test_mine():
+    # token = request.args.get('page_token', None)
+    # if token:
+    #     token = token.encode('utf-8')
 
-    exam, next_page_token = get_model().list(cursor=token)
-
-    print(session['profile']['email'])
+    exams = get_model().exams_list(session['profile']['email'])
+    flashcards = get_model().flashcards_list(session['profile']['email'])
 
     return render_template(
         "test.html",
-        exam=exam,
-        next_page_token=next_page_token)
+        exam=exams,
+        flashcard=flashcards)
 # [END list_mine]
 
 # [START Quiz]
@@ -62,48 +61,83 @@ def quiz():
         # convert jsonify string back into list of dictionary
         quizArray = json.loads(request.form["quizArray"])
         mode = json.loads(request.form["mode"])
-        print(mode)
+        
         return render_template("quiz.html", quizArray=quizArray, mode=mode)
     
     return render_template("quiz.html")
 # [END Quiz]
 
 
-@crud.route('/<id>')
-def view(id):
-    exam = get_model().read(id)
-    return render_template("view.html", exam=exam)
+# [START Flashcard]
+@crud.route("/flashcard")
+def flashcard():
+    # try:
+        # Load flashcard questions list
+        # questionArray = get_model().flashcards_list(session['profile']['email'])
+        questionArray = get_model().flashcards_list("")
+        print(questionArray)
+        # convert jsonify string back into list of dictionary
+        # questionArray = json.loads(request.form["questionArray"])
+            
+        return render_template("flashcard.html", questionArray=questionArray)
+    # except:
+    #     return render_template("test.html")
+    
+# [END Flashcard]
 
 
 # [START add]
 @crud.route('/add', methods=['GET', 'POST'])
 def add():
     if request.method == 'POST':
-        data = request.form.to_dict(flat=True)
+        questions = request.form["questions"]
+        answers = request.form["answers"]
+        user_answers = request.form["user_answers"]
+        email = request.form["email"]
 
-        exam = get_model().create(data)
+        data = {
+            "questions": questions,
+            "answers": answers,
+            "user_answers": user_answers,
+            "createdBy": email
+        }
 
-        return redirect(url_for('.view', id=exam['id']))
+        # add data into exams table
+        get_model().exams_create(data)
 
-    return render_template("form.html", action="Add", book={})
+        # add missed questions into flashcards
+        questions_list = literal_eval(questions)
+        answers_list = literal_eval(answers)
+        user_answers_list = literal_eval(user_answers)
+        for i, question in enumerate(questions_list):
+            if(answers_list[i] != user_answers_list[i]):
+                # add missed question into flashcards table
+                flashcards_data = {
+                    "createdBy": email,
+                    "question": question
+                }
+                try:
+                    get_model().flashcards_create(flashcards_data)
+                except:
+                    # Ignore duplicates
+                    pass
+
+    return "Results submitted!"
 # [END add]
 
-
-@crud.route('/<id>/edit', methods=['GET', 'POST'])
-def edit(id):
-    exam = get_model().read(id)
-
+# [START flash_del]
+@crud.route('/flash_del', methods=['GET', 'POST'])
+def flash_del():
     if request.method == 'POST':
-        data = request.form.to_dict(flat=True)
+        content = request.get_json()
 
-        exam = get_model().update(data, id)
+        question = content["question"]
+        email = content["email"]
+        try:
+            get_model().flashcards_delete(email, question)
+        except:
+            pass
+    return "success"
+    
 
-        return redirect(url_for('.view', id=exam['id']))
-
-    return render_template("form.html", action="Edit", exam=exam)
-
-
-@crud.route('/<id>/delete')
-def delete(id):
-    get_model().delete(id)
-    return redirect(url_for('.list'))
+# [END flash_del]

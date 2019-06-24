@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <h3>Flash card</h3>
+  <div class="container">
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="0">
+        <ol class="carousel-indicators">
+            {% for question in questionArray %}
+                {% if loop.first %}
+                  <li data-target="#carouselExampleIndicators" data-slide-to={{loop.index-1}} class="active"></li>
+                {% else %}
+                  <li data-target="#carouselExampleIndicators" data-slide-to={{loop.index-1}}></li>
+                {% endif %}
+            {% endfor %}
+        </ol>
+        <div class="carousel-inner">
+            {% for question in questionArray %}
+                {% if loop.first %}
+                  <div class="jumbotron carousel-item active">
+                {% else %}
+                  <div class="jumbotron carousel-item">
+                {% endif %}
+                    <h5 class="display-5">Question {{loop.index}} ({{question.id + question.question|string}})</h5>
+                    <div class={{question.id}} value={{question.question}}></div>
+                    <br>
+                    <p class="lead">
+                        <a class="btn btn-primary btn-lg" href="#carouselExampleIndicators" role="button" data-slide="prev">Prev</a>
+                        <a class="btn btn-primary btn-lg" href="#carouselExampleIndicators" role="button" data-slide="next">Next</a>
+                        <a class="btn btn-primary btn-lg" href={{ "#answer" + question.id + question.question|string}} role="button" data-toggle="collapse">Answer</a>
+                        {% if session.profile %}
+                        <button name="deleteBtn" type="button" class="btn btn-primary btn-lg float-right" value={{question.id + question.question|string}} email="{{session.profile.email}}">Delete</button>
+                        {% else %}
+                        <button name="deleteBtn" type="button" class="btn btn-primary btn-lg float-right" value={{question.id + question.question|string}} email="">Delete</button>
+                        {% endif %}
+                        <br><br>
+                    </p>
+                    <p class="lead">
+                        <label class="form-group collapse" id={{ "answer" + question.id + question.question|string }} index={{loop.index-1}}></label>
+                    </p>
+                  </div>
+            {% endfor %}
+        </div>
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block javascript %}
+    <script src="{{ url_for('static', filename='js/flashcard.js') }}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>"
+{% endblock %}
