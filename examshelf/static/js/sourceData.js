@@ -10,6 +10,11 @@ var sourceData = [
         data: delaData
     },
     {
+        id:'up',
+        name: "Udemy GCP Professional Data Engineer Practice Exam",
+        data: deupData
+    },
+    {
         id: "cc",
         name: "Data Engineering, Big Data, and Machine Learning",
         data: deccData
