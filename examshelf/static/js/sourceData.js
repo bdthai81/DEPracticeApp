@@ -11,7 +11,7 @@ var sourceData = [
     },
     {
         id:'up',
-        name: "Udemy GCP Prof. Data Engineer Practice Exam",
+        name: "Udemy GCP Prof Data Engineer Practice Exam",
         data: deupData
     },
     {
