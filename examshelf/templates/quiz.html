@@ -47,6 +47,7 @@
                             </p>
                             <p class="lead">
                                 <label class="form-group" id={{ "result" + quiz.id + quiz.question|string}} name="invisibleElements"></label>
+                                <br>
                                 <label class="form-group collapse" id={{ "answer" + quiz.id + quiz.question|string }} index={{loop.index-1}}></label>
                             </p>
                           </div>
@@ -67,8 +68,10 @@
     <script src="{{ url_for('static', filename='js/deccData.js') }}"></script>
     <script src="{{ url_for('static', filename='js/decpData.js') }}"></script>
     <script src="{{ url_for('static', filename='js/delaData.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/delqData.js') }}"></script>
     <script src="{{ url_for('static', filename='js/deptData.js') }}"></script>
     <script src="{{ url_for('static', filename='js/deupData.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/dewlData.js') }}"></script>
     <script src="{{ url_for('static', filename='js/sourceData.js') }}"></script>
     <script src="{{ url_for('static', filename='js/quiz.js') }}"></script>
     </body>

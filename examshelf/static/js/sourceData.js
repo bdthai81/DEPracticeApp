@@ -5,14 +5,24 @@ var sourceData = [
         data: deptData
     },
     {
-        id: "la",
-        name: "GCP D.E. Linux Academy Tests 2019",
-        data: delaData
-    },
-    {
         id:'up',
         name: "Udemy GCP Prof. Data Engineer Practice Exam",
         data: deupData
+    },
+    {
+        id: "lq",
+        name: "GCP D.E. Linux Academy Quiz 2019",
+        data: delqData
+    },
+    {
+        id: "la",
+        name: "GCP D.E. Linux Academy Exam 2019",
+        data: delaData
+    },
+    {
+        id: "wl",
+        name: "WhizLab GCP Prof. Data Engineer Practice Exam",
+        data: dewlData
     },
     {
         id: "cc",
@@ -23,5 +33,5 @@ var sourceData = [
         id: "cp",
         name: "Coursera Practice Exam Quiz",
         data: decpData
-    },
+    }
 ];

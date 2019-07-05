@@ -43,7 +43,7 @@ var delaData = [
             "D. Use Cloud Storage for storage. Link data as temporary tables in BigQuery and turn on the Automatically detect option in the Schema section of BigQuery."
         ],
         answer: "C",
-        explanation: "C is correct because of the requirement to support occasionally (schema) changing JSON files and aggregate ANSI SQL queries; you need to use BigQuery, and it is quickest to use Automatically detect for schema changes. B, You should not provide format files; you can simply turn on the Automatically detect schema changes flag. D is not correct because you should not use Cloud Storage for this scenario; it is cumbersome and doesn't add value. https://linuxacademy.com/cp/courses/lesson/course/2238/lesson/3/module/208"
+        explanation: "C is correct because of the requirement to support occasionally (schema) changing JSON files and aggregate ANSI SQL queries; you need to use BigQuery, and it is quickest to use Automatically detect for schema changes. A, This is not correct because you should not use Cloud Storage for this scenario; it is cumbersome and doesn't add value. B, You should not provide format files; you can simply turn on the Automatically detect schema changes flag. D is not correct because you should not use Cloud Storage for this scenario; it is cumbersome and doesn't add value. https://linuxacademy.com/cp/courses/lesson/course/2238/lesson/3/module/208"
     },
     {
         // Question 3
@@ -212,7 +212,7 @@ var delaData = [
             "D. Use Cloud Storage for storage. Write a Cloud Dataprep job to split the data into partitioned tables."
         ],
         answer: "A",
-        explanation: "A, You will want to use Bigtable for this 'values over time' scenario. Using tall and narrow tables is the best practice for this use case. B, You should design tall and narrow tables, not short and wide tables. Also, you should use a new row, not a new column. D, You should not use Cloud Storage or BigQuery for this scenario. Bigtable is the better option. https://linuxacademy.com/cp/courses/lesson/course/2111/lesson/3/module/208"
+        explanation: "A, You will want to use Bigtable for this 'values over time' scenario. Using tall and narrow tables is the best practice for this use case. B, You should design tall and narrow tables, not short and wide tables. Also, you should use a new row, not a new column. C, You should not use Cloud Storage or BigQuery for this scenario. Bigtable is the better option. D, You should not use Cloud Storage or BigQuery for this scenario. Bigtable is the better option. https://linuxacademy.com/cp/courses/lesson/course/2111/lesson/3/module/208"
     },
     {
         // Question 16
@@ -621,7 +621,7 @@ var delaData = [
     {
         // Question 47
         id: 47,
-        question: "You need to choose a structure storage option for storing very large amounts of data with the following properties and requirements: * The data has a single key. * You need very low latency. Which solution should you choose?",
+        question: "You need to choose a structure storage option for storing very large amounts of data with the following properties and requirements:<br>* The data has a single key.<br>* You need very low latency. Which solution should you choose?",
         options: [
             "A. Bigtable",
             "B. Datastore",
@@ -745,8 +745,8 @@ var delaData = [
             "C. Online predictions are returned in the response message.",
             "D. Batch predictions are optimized to handle a high volume of prediction examples while running on more complex models."
         ],
-        answer: "D",
-        explanation: "D, This is correct. Batch predictions are used for larger loads and more complex models. B, This describes online predictions, not batch. https://linuxacademy.com/cp/courses/lesson/course/2247/lesson/1/module/208"
+        answer: "CD",
+        explanation: "D, This is correct. Batch predictions are used for larger loads and more complex models. B, This describes online predictions, not batch. B, This describes online predictions, not batch. https://linuxacademy.com/cp/courses/lesson/course/2247/lesson/1/module/208"
     },
     {
         // Question 57
@@ -824,7 +824,7 @@ var delaData = [
             "D. Use Transfer Appliance to transfer the offsite backup files to a Cloud Storage Coldline bucket as a final destination."
         ],
         answer: "A",
-        explanation: "A, This is correct because you will need to access your backup data monthly to test your disaster recovery process, so you should use a Nearline bucket; also, because you will be performing ongoing, regular data transfers, so you should use the storage transfer service. B, Coldline buckets need to stay un-modified for 3 months (90 days) to avoid additional charges, and your scenario calls for once a month access. https://linuxacademy.com/cp/courses/lesson/course/2103/lesson/3/module/208"
+        explanation: "A, This is correct because you will need to access your backup data monthly to test your disaster recovery process, so you should use a Nearline bucket; also, because you will be performing ongoing, regular data transfers, so you should use the storage transfer service. B, Coldline buckets need to stay un-modified for 3 months (90 days) to avoid additional charges, and your scenario calls for once a month access. C, Transfer Appliance is used for on-premises transfers, not cloud-to-cloud, and is not used for repeated/scheduled transfers. https://linuxacademy.com/cp/courses/lesson/course/2103/lesson/3/module/208"
     },
     {
         // Question 63
@@ -890,5 +890,122 @@ var delaData = [
         ],
         answer: "D",
         explanation: "D, Adding a timestamp is necessary for making sure that the final result messaging is in the correct order. B, Attaching a unique identifier is not the preferred answer compared to attaching a timestamp, which is the correct answer. https://linuxacademy.com/cp/courses/lesson/course/2241/lesson/2/module/208"
+    },
+    {
+        // Question 68
+        id: 68,
+        question: "You are creating a machine learning model for predicting a person's income given a variety of factors such as age, race, occupation, and others. What type of problem are we trying to solve in our prediction values?",
+        options: [
+            "A. Classification",
+            "B. Clustering",
+            "C. Unsupervised learning",
+            "D. Regression"
+        ],
+        answer: "D",
+        explanation: ""
+    },
+    {
+        // Question 69
+        id: 69,
+        question: "You need to deploy a TensorFlow machine-learning model to Google Cloud. You want to maximize the speed and minimize the cost of model prediction and deployment. What should you do?",
+        options: [
+            "A. Export 2 copies of your trained model to a SavedModel format. Store artifacts in Cloud Storage. Run 1 version on CPUs and another version on GPUs.",
+            "B. Export 2 copies of your trained model to a SavedModel format. Store artifacts in Cloud ML Engine. Run 1 version on CPUs and another version on GPUs.",
+            "C. Export your trained model to a SavedModel format. Deploy and run your model from a Kubernetes Engine cluster",
+            "D. Export your trained model to a SavedModel format. Deploy and run your model on Cloud ML Engine."
+        ],
+        answer: "D",
+        explanation: ""
+    },
+    {
+        // Question 70
+        id: 70,
+        question: "What is the difference between a deep and wide neural network? What would you use a deep AND wide neural network for? (Choose all that apply)",
+        options: [
+            "A. Wide models are used for generalizations. Deep models are for memorization.",
+            "B. Deep and wide models are ideal for solving regression problems.",
+            "C. Wide models are used for memorization. Deep models are for generalization",
+            "D. Deep and wide models are ideal for a recommendation application."
+        ],
+        answer: "CD",
+        explanation: ""
+    },
+    {
+        // Question 71
+        id: 71,
+        question: "Your BigQuery table needs to be accessed by team members who are not proficient in technology. You want to simplify the columns they need to query to avoid confusion. How can you do this while preserving all of the data in your table?",
+        options: [
+            "A. Create a query that uses the reduced number of columns they will access. Save this query as a view in a different dataset. Give your team members access to the new dataset and instruct them to query against the saved view instead of the main table.",
+            "B. Train your team members on how to query larger tables.",
+            "C. Apply column filtering to your table, and restrict the unfiltered view to yourself and those who need access to the full table.",
+            "D. Create a copy of your table in a different dataset, and remove the unneeded columns from the copy. Have your team members run queries against this copy."
+        ],
+        answer: "A", 
+        explanation: ""
+    },
+    {
+        // Question 72
+        id: 72,
+        question: "What is the purpose of hyperparameters in a machine learning training model?",
+        options: [
+            "A. Form the basis of labels on your training data.",
+            "B. Hyperparameters adjust the training process itself.",
+            "C. Train for a regression machine learning problem.",
+            "D. They help your model learn from the training data"
+        ],
+        answer: "B",
+        explanation: "B, Learning rate and hidden layers (hyperparameters) are variables that adjust the learning model but have no relation to the training data used. D, Learning rate and hidden layers (hyperparameters) are variables that adjust the learning model but have no relation to the training data used. https://linuxacademy.com/cp/courses/lesson/course/2246/lesson/2/module/208"
+    },
+    {
+        // Question 
+        id: 73,
+        question: "You have data stored in a Cloud Storage dataset and also in a BigQuery dataset. You need to secure the data and provide 3 different types of access levels for your Google Cloud Platform users: administrator, read/write, and read-only. You want to follow Google-recommended practices. What should you do?",
+        options: [
+            "A. At the Organization level, add your administrator user accounts to the Owner role, add your read/write user accounts to the Editor role, and add your read-only user accounts to the Viewer role.",
+            "B. Create 3 custom IAM roles with appropriate policies for the access levels needed for Cloud Storage and BigQuery. Add your users to the appropriate roles.",
+            "C. At the Project level, add your administrator user accounts to the Owner role, add your read/write user accounts to the Editor role, and add your read-only user accounts to the Viewer role.",
+            "D. Use the appropriate pre-defined IAM roles for each of the access levels needed for Cloud Storage and BigQuery. Add your users to those roles for each of the services."
+        ],
+        answer: "D",
+        explanation: ""
+    },
+    {
+        // Question 74
+        id: 74,
+        question: "You regularly use prefetch caching with a Data Studio report to visualize the results of BigQuery queries. You want to minimize service costs. What should you do?",
+        options: [
+            "A. Set up the report to use the Owner's credentials to access the underlying data in BigQuery, and verify that the Enable cache checkbox is selected for the report.",
+            "B. Set up the report to use the Owner's credentials to access the underlying data in BigQuery, and direct the users to view the report only once per business day (24-hour period).",
+            "C. Set up the report to use the Viewer's credentials to access the underlying data in BigQuery, and verify that the Enable cache checkbox is not selected for the report.",
+            "D. Set up the report to use the Viewer's credentials to access the underlying data in BigQuery, and also set it up to be a view-only report."
+        ],
+        answer: "A",
+        explanation: ""
+    },
+    {
+        // Question 75
+        id: 75,
+        question: "Which of these is NOT a valid reason to choose an HDD storage type over SSD in a Bigtable instance?",
+        options: [
+            "A. You need to maintain costs.",
+            "B. You plan on running batch workloads instead of frequently executing random reads across a small number of rows.",
+            "C. You need to integrate Bigtable with Cloud Storage",
+            "D. You need to store over 10TB of data."
+        ],
+        answer: "C",
+        explanation: "C, This is not a valid reason for choosing HDD storage, therefore it is the correct answer. B, This is a valid reason for choosing HDD storage."
+    },
+    {
+        // Question 76
+        id: 76,
+        question: "You are designing storage for CSV files and using an I/O-intensive custom Apache Spark transform as part of deploying a data pipeline on Google Cloud. You are using ANSI SQL to run queries for your analysts. You want to support complex aggregate queries and reuse existing code. How should you transform the input data?",
+        options: [
+            "A. Use Cloud Storage for storage. Use Cloud Dataflow to run the transformations.",
+            "B. Use BigQuery for storage. Use Cloud Dataproc to run the transformations.",
+            "C. Use Cloud Storage for storage. Use Cloud Dataproc to run the transformations.",
+            "D. Use BigQuery for storage. Use Cloud Dataflow to run the transformations."
+        ],
+        answer: "B",
+        explanation: ""
     }
 ];

@@ -165,7 +165,7 @@ var deptData = [
     {
         // Question 12
         id: 12,
-        question: "A company is building an image tagging pipeline. Which service should be used in the icon with the Question mark in the diagram?",
+        question: "A company is building an image tagging pipeline. Which service should be used in the icon with the Question mark in the diagram?<br><img src='/static/images/deptq12.png'><br><br>",
         options: [
             "A. Cloud Datastore",
             "B. Cloud Dataflow",
@@ -495,7 +495,7 @@ var deptData = [
     {
         // Question 37
         id: 37,
-        question: "A company has a new IoT pipeline. Which services will make this design work? Select the services that should be used to replace the icons with the number ''1'' and number ''2'' in the diagram.",
+        question: "A company has a new IoT pipeline. Which services will make this design work? Select the services that should be used to replace the icons with the number ''1'' and number ''2'' in the diagram.<br><img src='/static/images/deptq37.png'><br><br>",
         options: [
             "A. Cloud IoT Core, Cloud Datastore",
             "B. Cloud Pub/Sub, Cloud Storage",
@@ -739,7 +739,7 @@ var deptData = [
             "D. Time to move to Cloud Bigtable; it is faster in all cases."
         ],
         answer: "A",
-        explanation: "Correct answer is A as the performance issue is because the data is stored in a non-optimal format in an external storage medium. Refer GCP documentation - BigQuery External Data Sources: - https://cloud.google.com/bigquery/external-data-sources; Query performance for external data sources may not be as high as querying data in a native BigQuery table. If query speed is a priority, load the data into BigQuery instead of setting up an external data source. The performance of a query that includes an external data source depends on the external storage type. For example, querying data stored in Cloud Storage is faster than querying data stored in Google Drive. In general, query performance for external data sources should be equivalent to reading the data directly from the external storage. Option B is wrong as there is feature to request more slots. Option C is wrong as partitioning of data at source would not improve query time for all use cases. Option D is wrong as Bigtable is more ideal for NoSQL data type and can get very expensive;"
+        explanation: "Correct answer is A as the performance issue is because the data is stored in a non-optimal format in an external storage medium. Refer GCP documentation - BigQuery External Data Sources: - https://cloud.google.com/bigquery/external-data-sources; Query performance for external data sources may not be as high as querying data in a native BigQuery table. If query speed is a priority, load the data into BigQuery instead of setting up an external data source. The performance of a query that includes an external data source depends on the external storage type. For example, querying data stored in Cloud Storage is faster than querying data stored in Google Drive. In general, query performance for external data sources should be equivalent to reading the data directly from the external storage. Option B is wrong as there is no feature to request more slots. Option C is wrong as partitioning of data at source would not improve query time for all use cases. Option D is wrong as Bigtable is more ideal for NoSQL data type and can get very expensive;" 
     },
     {
         // Question 56
@@ -1385,7 +1385,7 @@ var deptData = [
     {
         // Question 105
         id: 105,
-        question: "Your company is using WILDCARD tables to query data across multiple tables with similar names. The SQL statement is currently failing with the following error: Which table name will make the SQL statement work correctly?",
+        question: "Your company is using WILDCARD tables to query data across multiple tables with similar names. The SQL statement is currently failing with the following error:<br><img src='/static/images/deptq105.png'><br><br>Which table name will make the SQL statement work correctly?",
         options: [
             "A. `bigquery-public-data.noaa_gsod.gsod`",
             "B. bigquery-public-data.noaa_gsod.gsod*",
@@ -1883,8 +1883,7 @@ var deptData = [
         options: [
             "A. Supervised learning to determine which transactions are most likely to be fraudulent.",
             "B. Unsupervised learning to determine which transactions are most likely to be fraudulent.",
-            "C. Clustering to divide the transactions into N categories based on feature similarity.",
-            "D. Supervised learning to determine which transactions are most likely to be fraudulent."
+            "C. Clustering to divide the transactions into N categories based on feature similarity."
         ],
         answer: "AC",
         explanation: "Correct answers are A & C; Option A as you would use Supervised learning - Classification can help classify the transaction as fraudulent or not. Option C as Unsupervised learning - Clustering can help group similar examples and divide the transactions into patterns. Refer documentation - Machine learning: - https://cloud.google.com/ml-engine/docs/"

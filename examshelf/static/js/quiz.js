@@ -106,7 +106,7 @@ sourceData.forEach(function(source) {
         // Generate html question elements
         var qLabel = document.createElement("label");
         qLabel.classList.add("form-check-label");
-        qLabel.append(questionData.question);
+        qLabel.innerHTML = questionData.question
         divElement.append(qLabel);
         var br = document.createElement("br");
         divElement.appendChild(br);
@@ -132,9 +132,9 @@ sourceData.forEach(function(source) {
                 qRadio.addEventListener('change', qChecked);
             };
             
-            qLabel.append(qRadio);
-            qLabel.append(questionData.options[i]);
+            qLabel.innerHTML = questionData.options[i];
             // Append elements
+            divElement.append(qRadio);
             divElement.append(qLabel);
             br = document.createElement("br");
             divElement.appendChild(br);
@@ -143,7 +143,7 @@ sourceData.forEach(function(source) {
         // Answer
         var answerLabel = document.getElementById("answer"+source.id+qNo);
         answerLabel.setAttribute("value", questionData.answer);
-        answerLabel.innerHTML = questionData.answer + "<br>" + questionData.explanation;
+        answerLabel.innerHTML = "Answer: " + questionData.answer + "<br>" + questionData.explanation;
         // Append answer into answerArray and create emtpy userAnswerArray
         userAnswerArray.push("");
         answerArray[answerLabel.getAttribute("index")] = questionData.answer;
