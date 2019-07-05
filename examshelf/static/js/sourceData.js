@@ -20,9 +20,15 @@ var sourceData = [
         data: delaData
     },
     {
+<<<<<<< HEAD
         id: "wl",
         name: "WhizLab GCP Prof. Data Engineer Practice Exam",
         data: dewlData
+=======
+        id:'up',
+        name: "Udemy GCP Prof Data Engineer Practice Exam",
+        data: deupData
+>>>>>>> bf098eb46bd94d862960666dc9ad29b033b76e5b
     },
     {
         id: "cc",
